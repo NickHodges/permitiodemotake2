@@ -1,0 +1,9 @@
+<ng-container *ngIf="auth.isAuthenticated$ | async; else loggedOut">
+  <button class="btn btn-danger navbar-btn login-btn" (click)="doLogout()">
+    Log out
+  </button>
+</ng-container>
+
+<ng-template #loggedOut>
+  <button class="btn btn-danger navbar-btn login-btn" (click)="doLogin()">Log in</button>
+</ng-template>

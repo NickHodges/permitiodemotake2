@@ -1,0 +1,47 @@
+<div>
+  <div>
+    <button (click)="readCode()" type="button" class="btn btn-primary">
+      Read Code
+    </button>
+  </div>
+  <p></p>
+  <div>
+    <button (click)="writeCode()" type="button" class="btn btn-primary">
+      Write Code
+    </button>
+  </div>
+  <p></p>
+  <div>
+    <button (click)="reviewCode()" type="button" class="btn btn-primary">
+      Review Code
+    </button>
+  </div>
+  <p></p>
+  <div>
+    <button (click)="commitCode()" type="button" class="btn btn-primary">
+      Commit Code
+    </button>
+  </div>
+  <p></p>
+  <div>
+    <button (click)="promoteMarvin()" type="button" class="btn btn-primary">
+      Promote Marvin
+    </button>
+  </div>
+  <p></p>
+  <div>
+    <button (click)="demoteMarvin()" type="button" class="btn btn-primary">
+      Demote Marvin
+    </button>
+  </div>
+
+
+  <div *ngIf="message" class="mt-5">
+    <h6 class="muted">Result</h6>
+    <div class="container-fluid">
+      <div class="row">
+        <code> {{ message }} </code>
+      </div>
+    </div>
+  </div>
+</div>
