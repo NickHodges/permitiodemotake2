@@ -18,13 +18,15 @@ export class LoginButtonComponent implements OnInit {
   ngOnInit(): void {}
 
   doLogin(): void {
-    this.auth.loginWithPopup();
+    this.auth.loginWithPopup();;
     this.auth.getAccessTokenSilently().subscribe((token) => {
       localStorage.setItem('token', token);
+      console.log('Token stored!');
     });
   }
 
   doLogout(): void {
     this.auth.logout({ returnTo: document.location.origin });
+    localStorage.removeItem('token');
   }
 }
