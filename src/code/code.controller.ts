@@ -1,13 +1,13 @@
 import { Controller, Get, UseGuards } from '@nestjs/common';
+import { AuthGuard } from '@nestjs/passport';
 import { AppService } from 'src/app.service';
 import { Permissions } from '../permissions.decorator';
 import { PermissionsGuard } from '../permissions.guard';
-
 @Controller('code')
 export class CodeController {
   constructor(private readonly appService: AppService) {}
 
-  @UseGuards(PermissionsGuard)
+  @UseGuards(PermissionsGuard, AuthGuard('jwt'))
   @Get('read')
   @Permissions('code:read')
   async read(): Promise<string> {
@@ -34,6 +34,4 @@ export class CodeController {
   async commit(): Promise<string> {
     return 'You are authorized to  commit code from here';
   }
-
-
 }
