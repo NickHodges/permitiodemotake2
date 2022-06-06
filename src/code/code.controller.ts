@@ -14,21 +14,21 @@ export class CodeController {
     return 'You are authorized to read code from here';
   }
 
-  @UseGuards(PermissionsGuard)
+  @UseGuards(AuthGuard('jwt'), PermissionsGuard)
   @Get('write')
   @Permissions('code:write')
   async write(): Promise<string> {
     return 'You are authorized to  write code from here';
   }
 
-  @UseGuards(PermissionsGuard)
+  @UseGuards(AuthGuard('jwt'), PermissionsGuard)
   @Get('review')
   @Permissions('code:review')
   async review(): Promise<string> {
     return 'You are authorized to  review code from here';
   }
 
-  @UseGuards(PermissionsGuard)
+  @UseGuards(AuthGuard('jwt'), PermissionsGuard)
   @Get('commit')
   @Permissions('code:commit')
   async commit(): Promise<string> {
