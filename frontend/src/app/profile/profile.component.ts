@@ -1,5 +1,7 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '@auth0/auth0-angular';
+import { concatMap, pluck, tap } from 'rxjs';
 
 @Component({
   selector: 'app-profile',
@@ -9,19 +11,15 @@ import { AuthService } from '@auth0/auth0-angular';
 export class ProfileComponent implements OnInit {
   tokenClaims: string = '';
   token: string = '';
-  badToken: string = '';
+  metadata = {};
 
-  constructor(public auth: AuthService) {}
+  constructor(public auth: AuthService, private http: HttpClient) {}
 
   ngOnInit(): void {
     this.auth.idTokenClaims$.subscribe((claims) => {
       this.tokenClaims = JSON.stringify(claims, null, 2);
       this.getRawToken();
     });
-
-    this.auth.getAccessTokenSilently().subscribe(
-      (token) => (this.badToken = token),
-    );
   }
 
   getRawToken() {

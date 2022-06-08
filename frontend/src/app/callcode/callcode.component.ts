@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { AuthService } from '@auth0/auth0-angular';
 
 @Component({
   selector: 'call-code-api',
@@ -9,7 +10,11 @@ export class CallCodeComponent implements OnInit {
   message: string = '';
   private rootURL: string = 'http://localhost:3000';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private readonly auth: AuthService) {
+    this.auth.error$.subscribe((error) => {
+      console.log('Error: ', error);
+    });
+  }
 
   ngOnInit(): void {}
 
@@ -58,6 +63,14 @@ export class CallCodeComponent implements OnInit {
       .get(`${this.rootURL}/personnel/demote`, { responseType: 'text' })
       .subscribe(() => {
         this.message = 'Marvin has been demoted!';
+      });
+  }
+
+  sayHello() {
+    this.http
+      .get(`${this.rootURL}/hello`, { responseType: 'text' })
+      .subscribe(() => {
+        this.message = 'Hello was said!';
       });
   }
 }

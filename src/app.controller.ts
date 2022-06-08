@@ -7,7 +7,7 @@ export class AppController {
   constructor(private readonly appService: AppService) {}
 
   @UseGuards(AuthGuard('jwt'))
-  @Get()
+  @Get('hello')
   getHello(): string {
     return this.appService.getHello();
   }

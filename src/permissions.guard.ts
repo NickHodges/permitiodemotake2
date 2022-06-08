@@ -28,6 +28,8 @@ export class PermissionsGuard implements CanActivate {
 
     const category: string = routePermissions[0].split(':')[0];
     const action: string = routePermissions[0].split(':')[1];
+    console.log('category: ', category);
+    console.log('action: ', action);
 
     let token: string = context.switchToHttp().getRequest().headers[
       'authorization'
@@ -71,6 +73,6 @@ export class PermissionsGuard implements CanActivate {
       return 'decodedToken is null or undefined';
     }
     console.log('decodedToken: ', decodedToken);
-    return decodedToken['http://permit.io/user_email'];
+    return decodedToken['http://permit.io/user_emailemail'];
   }
 }

@@ -19,6 +19,7 @@
     "@angular/platform-browser-dynamic": "~13.3.0",
     "@angular/router": "~13.3.0",
     "@auth0/auth0-angular": "^1.9.0",
+    "@webundsoehne/nestjs-auth0-guard": "^1.0.0",
     "permitio": "^0.0.4",
     "rxjs": "~7.5.0",
     "stream-browserify": "^3.0.0",
@@ -41,5 +42,5 @@
   },
   "browser": {
     "crypto": false
-}
+  }
 }

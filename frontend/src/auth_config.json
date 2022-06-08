@@ -1,0 +1,6 @@
+{
+  "domain": "a4rb.auth0.com",
+  "clientId": "97DKUoDtcp1tB48C2Rx8DNjVPXgjtXJ6",
+  "audience": "https://codeapi.demo.com",
+  "serverUrl": "http://localhost:3000/"
+}

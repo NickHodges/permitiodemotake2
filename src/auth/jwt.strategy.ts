@@ -18,7 +18,7 @@ export class JwtStrategy extends PassportStrategy(Strategy) {
       }),
 
       jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-      //jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('JWT'),
+      //jwtFromRequest: ExtractJwt.fromAuthHeaderWithScheme('jwt'),
       audience: process.env.AUTH0_AUDIENCE,
       issuer: process.env.AUTH0_ISSUER_URL,
       passReqToCallback: false,

@@ -5,11 +5,11 @@ import { AppComponent } from './app.component';
 import { LoginButtonComponent } from './components/login-button/login-button.component';
 import { ProfileComponent } from './profile/profile.component';
 
-import { HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthModule } from '@auth0/auth0-angular';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
+import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { CallCodeComponent } from './callcode/callcode.component';
-import { HttpClientModule } from '@angular/common/http';
-import { TokenInterceptor } from '../token-interceptor.interceptor';
+import { environment as env } from '../environments/environment';
+// import { TokenInterceptor } from '../token-interceptor.interceptor';
 
 @NgModule({
   declarations: [
@@ -21,12 +21,22 @@ import { TokenInterceptor } from '../token-interceptor.interceptor';
   imports: [
     BrowserModule,
     AuthModule.forRoot({
-      domain: 'a4rb.auth0.com',
-      clientId: '97DKUoDtcp1tB48C2Rx8DNjVPXgjtXJ6',
-      serverUrl: 'http://localhost:3000',
-      audience: 'https://codeapi.demo.com',
+      ...env.auth,
       httpInterceptor: {
-        allowedList: ['http://localhost:3000/code/*'],
+        allowedList: [
+          {
+            // Match any request that starts 'https://a4rb.auth0.com/api/v2/' (note the asterisk)
+            uri: 'http://localhost:3000/code/*',
+            allowAnonymous: true,
+            tokenOptions: {
+              // The attached token should target this audience
+              //audience: 'https://a4rb.auth0.com',
+              audience: 'https://codeapi.demo.com',
+              // // The attached token should have these scopes
+              // scope: 'read:current_user',
+            },
+          },
+        ],
       },
     }),
     HttpClientModule,
@@ -34,9 +44,14 @@ import { TokenInterceptor } from '../token-interceptor.interceptor';
   providers: [
     {
       provide: HTTP_INTERCEPTORS,
-      useClass: TokenInterceptor,
+      useClass: AuthHttpInterceptor,
       multi: true,
     },
+    // {
+    //   provide: HTTP_INTERCEPTORS,
+    //   useClass: TokenInterceptor,
+    //   multi: true,
+    // },
   ],
   bootstrap: [AppComponent],
 })

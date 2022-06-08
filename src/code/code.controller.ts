@@ -7,7 +7,7 @@ import { PermissionsGuard } from '../permissions.guard';
 export class CodeController {
   constructor(private readonly appService: AppService) {}
 
-  @UseGuards(PermissionsGuard, AuthGuard('jwt'))
+  @UseGuards(AuthGuard('jwt'), PermissionsGuard)
   @Get('read')
   @Permissions('code:read')
   async read(): Promise<string> {
