@@ -18,21 +18,10 @@ export class LoginButtonComponent implements OnInit {
   ngOnInit(): void {}
 
   doLogin(): void {
-    console.log('Doing login');
-    this.auth.loginWithRedirect().subscribe(() => {
-      console.log('Authenticated!!!');
-      const claimsInfo = this.auth.getIdTokenClaims().subscribe((claims) => {
-        if (claims) {
-          console.log('Claims: ', claims);
-          const rawToken = claims.__raw; // (long token)
-          localStorage.setItem('token', rawToken);
-        }
-      });
-    });
+    this.auth.loginWithRedirect();
   }
 
   doLogout(): void {
-    localStorage.removeItem('token');
     this.auth.logout({ returnTo: document.location.origin });
   }
 }

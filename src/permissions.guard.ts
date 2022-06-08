@@ -28,21 +28,14 @@ export class PermissionsGuard implements CanActivate {
 
     const category: string = routePermissions[0].split(':')[0];
     const action: string = routePermissions[0].split(':')[1];
-    console.log('category: ', category);
-    console.log('action: ', action);
-
     let token: string = context.switchToHttp().getRequest().headers[
       'authorization'
     ];
-
     if (!token) {
       return false;
     }
-
     token = token.split(' ')[1];
-
     token = JSON.stringify(token);
-
     return this.getPermitted(token, action, category);
   }
 
@@ -53,9 +46,7 @@ export class PermissionsGuard implements CanActivate {
   ): Promise<boolean> {
     try {
       let user: string = this.getUserFromPayload(token);
-      console.log('user: ', user);
       const permitted = await permit.check(user, action, category);
-      console.log('permitted: ', permitted);
       return permitted;
     } catch (error) {
       console.log('error: ', error);
@@ -64,7 +55,7 @@ export class PermissionsGuard implements CanActivate {
   }
 
   getUserFromPayload(token: string): string {
-    //console.log('token: ', token);
+
     if (!token) {
       return '';
     }
@@ -72,7 +63,6 @@ export class PermissionsGuard implements CanActivate {
     if (!decodedToken) {
       return 'decodedToken is null or undefined';
     }
-    console.log('decodedToken: ', decodedToken);
     return decodedToken['http://permit.io/user_emailemail'];
   }
 }
