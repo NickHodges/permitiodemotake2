@@ -25,14 +25,9 @@ import { environment as env } from '../environments/environment';
       httpInterceptor: {
         allowedList: [
           {
-            // Match any request that starts 'https://a4rb.auth0.com/api/v2/' (note the asterisk)
             uri: 'http://localhost:3000/*',
             tokenOptions: {
-              // The attached token should target this audience
-              //audience: 'https://a4rb.auth0.com',
               audience: 'https://codeapi.demo.com',
-              // // The attached token should have these scopes
-              // scope: 'read:current_user',
             },
           },
         ],
@@ -46,11 +41,6 @@ import { environment as env } from '../environments/environment';
       useClass: AuthHttpInterceptor,
       multi: true,
     },
-    // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: TokenInterceptor,
-    //   multi: true,
-    // },
   ],
   bootstrap: [AppComponent],
 })
